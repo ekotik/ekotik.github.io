@@ -1,0 +1,61 @@
+languageCode: "en-us"
+title: "ekotik.github.io"
+theme: ["github-style"]
+
+disableKinds: [RSS]
+
+imaging:
+  anchor: smart
+  quality: 75
+  resampleFilter: CatmullRom
+
+permalinks:
+  post: "/:year/:month/:slug"
+
+taxonomies:
+  tags: "tags"
+  category: "categories"
+
+markup:
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    parser:
+      autoHeadingID: true
+      autoHeadingIDType: github
+    renderer:
+      unsafe: true
+  tableOfContents:
+    endLevel: 2
+    ordered: false
+    startLevel: 1
+  highlight:
+    codeFences: true
+    guessSyntax: true
+    noClasses: true
+    style: monokai
+    tabWidth: 4
+
+caches:
+  modules:
+    dir: ":cacheDir/modules"
+    maxAge: "2m"
+
+params:
+  author: "Robin Ragged"
+  avatar: "https://avatars.githubusercontent.com/u/78016028"
+  description: "☉☄☾"
+  github: "ekotik"
+  rss: false
+  lastmod: false
+  favicon: "/images/github.png"
+  userStatusEmoji: "♎"
+  enableGitalk: false
+  links:
+    - href: "https://github.com/russianworld"
+      icon: "https://avatars.githubusercontent.com/u/106627462"
+      title: "russianworld"
+
+googleAnalytics: "UA-00000000-0"
+
+frontmatter:
+  lastmod: ["lastmod", ":fileModTime", ":default"]

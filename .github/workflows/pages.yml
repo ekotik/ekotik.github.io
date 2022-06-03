@@ -1,0 +1,40 @@
+name: "Run: Build site"
+
+permissions: {}
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}-site-${{ github.run_id }}"
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+  push:
+
+jobs:
+  site:
+    permissions:
+      contents: write
+    concurrency:
+      group: "site-${{ inputs.run_id }}"
+      cancel-in-progress: true
+    uses: antirs/sh.wrap/.github/workflows/actions.yml@actions
+    with:
+      run_id: "site/actions"
+      docs_dir: "./content"
+      site_dir: "./"
+      public_dir: "./public"
+      public_cache: "site-${{ github.run_id }}"
+      gh_pages_repo: "https://github.com/ekotik/ekotik.github.io"
+      gh_pages_branch: "gh-pages/site"
+  update-submodules:
+    permissions:
+      contents: write
+    needs:
+      - doc
+    uses: antirs/sh.wrap/.github/workflows/update-submodules.yml@actions
+    with:
+      run_id: "site/update-submodules"
+      git_repo: "https://github.com/ekotik/ekotik.github.io"
+      git_branch: "gh-pages/site"
+      git_repo_dir: "./ekotik.github.io"
