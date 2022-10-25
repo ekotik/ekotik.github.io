@@ -31,7 +31,7 @@ jobs:
     permissions:
       contents: write
     needs:
-      - doc
+      - site
     uses: antirs/sh.wrap/.github/workflows/update-submodules.yml@actions
     with:
       run_id: "site/update-submodules"

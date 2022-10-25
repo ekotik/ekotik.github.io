@@ -1,3 +1,7 @@
 [submodule "themes/github-style"]
 	path = themes/github-style
 	url = https://github.com/MeiK2333/github-style.git
+[submodule "content/sh.wrap"]
+	path = content/sh.wrap
+	url = https://github.com/ekotik/sh.wrap.git
+	branch = gh-pages
