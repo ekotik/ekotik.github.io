@@ -1,0 +1,4 @@
+[submodule "sh.wrap"]
+	path = sh.wrap
+	url = https://github.com/ekotik/sh.wrap
+	branch = gh-pages/sh.wrap
