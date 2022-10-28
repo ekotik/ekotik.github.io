@@ -18,7 +18,7 @@ jobs:
     concurrency:
       group: "site-${{ inputs.run_id }}"
       cancel-in-progress: true
-    uses: antirs/sh.wrap/.github/workflows/actions.yml@actions
+    uses: ekotik/sh.wrap/.github/workflows/actions.yml@v0.0.0-actions
     with:
       run_id: "site/actions"
       docs_dir: "./content"
@@ -32,7 +32,7 @@ jobs:
       contents: write
     needs:
       - site
-    uses: antirs/sh.wrap/.github/workflows/update-submodules.yml@actions
+    uses: ekotik/sh.wrap/.github/workflows/update-submodules.yml@v0.0.0-actions
     with:
       run_id: "site/update-submodules"
       git_repo: "https://github.com/ekotik/ekotik.github.io"
