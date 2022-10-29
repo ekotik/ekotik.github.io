@@ -55,7 +55,5 @@ params:
       icon: "https://avatars.githubusercontent.com/u/106627462"
       title: "russianworld"
 
-googleAnalytics: "UA-00000000-0"
-
 frontmatter:
   lastmod: ["lastmod", ":fileModTime", ":default"]
