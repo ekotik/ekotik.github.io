@@ -1,0 +1,52 @@
+name: "Update git submodules"
+
+permissions: {}
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}-update-submodules-${{ github.run_id }}"
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron:  "*/5 * * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - "update-submodules"
+
+jobs:
+  check-submodules:
+    runs-on: ubuntu-latest
+    outputs:
+      status: "${{ steps.check.outputs.status }}"
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - id: check
+        name: "Check submodules"
+        run: |
+          git submodule update --recursive --init --force --remote
+          status=$(git diff --submodule | wc -l)
+          echo status="$status" >> $GITHUB_OUTPUT
+  update-submodules-main:
+    if: needs.check-submodules.outputs.status != '0'
+    permissions:
+      contents: write
+    needs:
+      - check-submodules
+    uses: ekotik/sh.wrap/.github/workflows/update-submodules.yml@dev/ekotik/actions
+    with:
+      run_id: "update-submodules-main-${{ github.ref }}"
+      git_repo: "https://github.com/ekotik/ekotik.github.io"
+      git_branch: "main"
+      git_repo_dir: "./ekotik.github.io"
+  update-submodules-site:
+    permissions:
+      contents: write
+    uses: ekotik/sh.wrap/.github/workflows/update-submodules.yml@dev/ekotik/actions
+    with:
+      run_id: "update-submodules-site-${{ github.ref }}"
+      git_repo: "https://github.com/ekotik/ekotik.github.io"
+      git_branch: "gh-pages/site"
+      git_repo_dir: "./ekotik.github.io"
+      git_amend: "yes"
